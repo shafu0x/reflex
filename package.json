@@ -18,8 +18,11 @@
     "solhint-plugin-prettier": "^0.0.5"
   },
   "lint-staged": {
-    "*.{sol,json,md,yml}": [
+    "*.{json,md,yml}": [
       "prettier --write"
+    ],
+    "*.sol": [
+      "prettier --write --plugin=prettier-plugin-solidity"
     ]
   }
 }
