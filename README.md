@@ -184,7 +184,7 @@ We are currently still in an experimental phase leading up to a first audit and 
 
 The goal of the framework is to provide an alternative, and in some aspects superior, solution to the fundamental problem EIP-2535: [Diamond, Multi-Facet Proxy](https://eips.ethereum.org/EIPS/eip-2535) aims to solve namely to enable the creation of modular smart contract systems that can be extended after deployment.
 
-The architecture is directly inspired by [Euler's Proxy Protocol](https://docs.euler.finance/developers/proxy-protocol) and we are thankful for their extensive documentation and novel modularization architecture.
+The architecture is directly inspired by [Euler's Proxy Protocol](https://docs-v1.euler.finance/developers/proxy-protocol) and we are thankful for their extensive documentation and novel modularization architecture.
 
 The original idea of what a Solidity framework may look like has been inspired by [Olympus DAO's Default Framework](https://github.com/fullyallocated/Default).
 
