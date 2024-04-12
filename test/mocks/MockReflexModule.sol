@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.24;
 
 // Sources
 import {ReflexModule} from "../../src/ReflexModule.sol";
@@ -39,7 +39,9 @@ contract MockReflexModule is MockHarness, ReflexModule {
      * @param moduleSettings_ Module settings.
      */
     constructor(ModuleSettings memory moduleSettings_) ReflexModule(moduleSettings_) {
-        _REFLEX_STORAGE().reentrancyStatus = _REENTRANCY_GUARD_UNLOCKED;
+        assembly ("memory-safe") {
+            tstore(_REFLEX_TRANSIENT_REENTRANCY_STATUS_SLOT, _REENTRANCY_GUARD_UNLOCKED)
+        }
     }
 
     // ==========
@@ -153,12 +155,14 @@ contract MockReflexModule is MockHarness, ReflexModule {
         n_ = _getCounter(_REENTRANCY_COUNTER_SLOT);
     }
 
-    function getReentrancyStatus() public view returns (uint256) {
-        return _REFLEX_STORAGE().reentrancyStatus;
+    function getReentrancyStatus() public view returns (uint256 status) {
+        assembly ("memory-safe") {
+            status := tload(_REFLEX_TRANSIENT_REENTRANCY_STATUS_SLOT)
+        }
     }
 
     function isReentrancyStatusLocked() public view returns (bool) {
-        return _REFLEX_STORAGE().reentrancyStatus == _REENTRANCY_GUARD_LOCKED;
+        return getReentrancyStatus() == _REENTRANCY_GUARD_LOCKED;
     }
 
     function callback() external nonReentrant {

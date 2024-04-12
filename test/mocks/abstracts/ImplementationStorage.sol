@@ -96,27 +96,23 @@ abstract contract ImplementationStorage is ReflexStorage {
         return _REFLEX_STORAGE_SLOT;
     }
 
-    function getReflexStorage0() public view returns (uint256) {
-        return _REFLEX_STORAGE().reentrancyStatus;
-    }
-
-    function getReflexStorage1() public view returns (address) {
+    function getReflexStorage0() public view returns (address) {
         return _REFLEX_STORAGE().owner;
     }
 
-    function getReflexStorage2() public view returns (address) {
+    function getReflexStorage1() public view returns (address) {
         return _REFLEX_STORAGE().pendingOwner;
     }
 
-    function getReflexStorage3(uint32 moduleId_) public view returns (address) {
+    function getReflexStorage2(uint32 moduleId_) public view returns (address) {
         return _REFLEX_STORAGE().modules[moduleId_];
     }
 
-    function getReflexStorage4(uint32 moduleId_) public view returns (address) {
+    function getReflexStorage3(uint32 moduleId_) public view returns (address) {
         return _REFLEX_STORAGE().endpoints[moduleId_];
     }
 
-    function getReflexStorage5(address endpoint_) public view returns (TrustRelation memory) {
+    function getReflexStorage4(address endpoint_) public view returns (TrustRelation memory) {
         return _REFLEX_STORAGE().relations[endpoint_];
     }
 

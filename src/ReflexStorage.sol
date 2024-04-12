@@ -74,10 +74,6 @@ abstract contract ReflexStorage is IReflexStorage, ReflexConstants {
     /// @custom:storage-location erc7201:reflex
     struct ReflexStorageLayout {
         /**
-         * @dev Global reentrancy status tracker.
-         */
-        uint256 reentrancyStatus;
-        /**
          * @dev Owner address.
          */
         address owner;

@@ -65,83 +65,71 @@ contract ImplementationStorageTest is ImplementationFixture {
         bytes32 current;
 
         /**
-         * | Name                                 | Type    | Slot                   | Offset | Bytes |
-         * |--------------------------------------|---------|------------------------|--------|-------|
-         * | ReflexStorageLayout.reentrancyStatus | address | RELEX_STORAGE_SLOT + 0 | 0      | 32    |
+         * | Name                      | Type    | Slot                   | Offset | Bytes |
+         * |---------------------------|---------|------------------------|--------|-------|
+         * | ReflexStorageLayout.owner | address | RELEX_STORAGE_SLOT + 0 | 0      | 32    |
          */
         vm.record();
         dispatcher.getReflexStorage0();
         (reads, ) = vm.accesses(address(dispatcher));
         assertEq(uint256(reads[0]), uint256(REFLEX_STORAGE_SLOT) + 0);
         current = vm.load(address(dispatcher), bytes32(reads[0]));
-        assertEq(uint256(current), 1);
+        assertEq(address(uint160(uint256(current))), address(this));
 
         /**
-         * | Name                      | Type    | Slot                   | Offset | Bytes |
-         * |---------------------------|---------|------------------------|--------|-------|
-         * | ReflexStorageLayout.owner | address | RELEX_STORAGE_SLOT + 1 | 0      | 32    |
+         * | Name                             | Type    | Slot                   | Offset | Bytes |
+         * |----------------------------------|---------|------------------------|--------|-------|
+         * | ReflexStorageLayout.pendingOwner | address | RELEX_STORAGE_SLOT + 1 | 0      | 32    |
          */
         vm.record();
         dispatcher.getReflexStorage1();
         (reads, ) = vm.accesses(address(dispatcher));
         assertEq(uint256(reads[0]), uint256(REFLEX_STORAGE_SLOT) + 1);
         current = vm.load(address(dispatcher), bytes32(reads[0]));
-        assertEq(address(uint160(uint256(current))), address(this));
-
-        /**
-         * | Name                             | Type    | Slot                   | Offset | Bytes |
-         * |----------------------------------|---------|------------------------|--------|-------|
-         * | ReflexStorageLayout.pendingOwner | address | RELEX_STORAGE_SLOT + 2 | 0      | 32    |
-         */
-        vm.record();
-        dispatcher.getReflexStorage2();
-        (reads, ) = vm.accesses(address(dispatcher));
-        assertEq(uint256(reads[0]), uint256(REFLEX_STORAGE_SLOT) + 2);
-        current = vm.load(address(dispatcher), bytes32(reads[0]));
         assertEq(address(uint160(uint256(current))), address(0));
 
         installerEndpoint.transferOwnership(address(target_));
 
         vm.record();
-        dispatcher.getReflexStorage2();
+        dispatcher.getReflexStorage1();
         (reads, ) = vm.accesses(address(dispatcher));
-        assertEq(uint256(reads[0]), uint256(REFLEX_STORAGE_SLOT) + 2);
+        assertEq(uint256(reads[0]), uint256(REFLEX_STORAGE_SLOT) + 1);
         current = vm.load(address(dispatcher), bytes32(reads[0]));
         assertEq(address(uint160(uint256(current))), address(target_));
 
         /**
          * | Name                        | Type    | Slot                    | Offset | Bytes |
          * |-----------------------------|---------|-------------------------|--------|-------|
-         * | ReflexStorageLayout.modules | address | REFLEX_STORAGE_SLOT + 3 | 0      | 32    |
+         * | ReflexStorageLayout.modules | address | REFLEX_STORAGE_SLOT + 2 | 0      | 32    |
          */
         vm.record();
-        dispatcher.getReflexStorage3(_MODULE_ID_SINGLE);
+        dispatcher.getReflexStorage2(_MODULE_ID_SINGLE);
         (reads, ) = vm.accesses(address(dispatcher));
-        assertEq((reads[0]), keccak256(abi.encode(_MODULE_ID_SINGLE, uint256(REFLEX_STORAGE_SLOT) + 3)));
+        assertEq((reads[0]), keccak256(abi.encode(_MODULE_ID_SINGLE, uint256(REFLEX_STORAGE_SLOT) + 2)));
         current = vm.load(address(dispatcher), bytes32(reads[0]));
         assertEq(address(uint160(uint256(current))), address(singleModuleImplementation));
 
         /**
          * | Name                          | Type    | Slot                    | Offset | Bytes |
          * |-------------------------------|---------|-------------------------|--------|-------|
-         * | ReflexStorageLayout.endpoints | address | REFLEX_STORAGE_SLOT + 4 | 0      | 32    |
+         * | ReflexStorageLayout.endpoints | address | REFLEX_STORAGE_SLOT + 3 | 0      | 32    |
          */
         vm.record();
-        dispatcher.getReflexStorage4(_MODULE_ID_SINGLE);
+        dispatcher.getReflexStorage3(_MODULE_ID_SINGLE);
         (reads, ) = vm.accesses(address(dispatcher));
-        assertEq((reads[0]), keccak256(abi.encode(_MODULE_ID_SINGLE, uint256(REFLEX_STORAGE_SLOT) + 4)));
+        assertEq((reads[0]), keccak256(abi.encode(_MODULE_ID_SINGLE, uint256(REFLEX_STORAGE_SLOT) + 3)));
         current = vm.load(address(dispatcher), bytes32(reads[0]));
         assertEq(address(uint160(uint256(current))), address(singleModuleEndpoint));
 
         /**
          * | Name                          | Type    | Slot                    | Offset | Bytes |
          * |-------------------------------|---------|-------------------------|--------|-------|
-         * | ReflexStorageLayout.relations | address | REFLEX_STORAGE_SLOT + 5 | 0      | 32    |
+         * | ReflexStorageLayout.relations | address | REFLEX_STORAGE_SLOT + 4 | 0      | 32    |
          */
         vm.record();
-        dispatcher.getReflexStorage5(address(singleModuleEndpoint));
+        dispatcher.getReflexStorage4(address(singleModuleEndpoint));
         (reads, ) = vm.accesses(address(dispatcher));
-        assertEq((reads[0]), keccak256(abi.encode(address(singleModuleEndpoint), uint256(REFLEX_STORAGE_SLOT) + 5)));
+        assertEq((reads[0]), keccak256(abi.encode(address(singleModuleEndpoint), uint256(REFLEX_STORAGE_SLOT) + 4)));
         current = vm.load(address(dispatcher), bytes32(reads[0]));
         assertEq(uint32(uint256(current)), singleModuleImplementation.moduleId());
         assertEq(address(uint160(uint256(current) >> 32)), address(singleModuleImplementation));
