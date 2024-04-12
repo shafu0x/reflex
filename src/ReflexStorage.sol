@@ -25,13 +25,6 @@ abstract contract ReflexStorage is IReflexStorage, ReflexConstants {
     bytes32 internal constant _REFLEX_STORAGE_SLOT = 0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900;
 
     /**
-     * @dev Storage slot of the global reentrancy status tracker.
-     * @dev `_REFLEX_STORAGE_LAYOUT + 0`
-     */
-    uint256 internal constant _REFLEX_STORAGE_REENTRANCY_STATUS_SLOT =
-        0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 0;
-
-    /**
      * @dev Storage slot of the owner address.
      * @dev `_REFLEX_STORAGE_LAYOUT + 1`
      */
@@ -75,10 +68,6 @@ abstract contract ReflexStorage is IReflexStorage, ReflexConstants {
      */
     /// @custom:storage-location erc7201:reflex
     struct ReflexStorageLayout {
-        /**
-         * @dev Global reentrancy status tracker.
-         */
-        uint256 reentrancyStatus;
         /**
          * @dev Owner address.
          */
