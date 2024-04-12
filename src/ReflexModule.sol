@@ -47,7 +47,7 @@ abstract contract ReflexModule is IReflexModule, ReflexStorage {
     modifier nonReentrant() virtual {
         assembly ("memory-safe") {
             // On the first call to `nonReentrant`, _status will be `_REENTRANCY_GUARD_UNLOCKED`.
-            if eq(tload(_REFLEX_STORAGE_REENTRANCY_STATUS_SLOT), _REENTRANCY_GUARD_LOCKED) {
+            if eq(tload(0), _REENTRANCY_GUARD_LOCKED) {
                 // Store the function selector of `Reentrancy()`.
                 mstore(0x00, 0xab143c06)
                 // Revert with (offset, size).
@@ -55,14 +55,14 @@ abstract contract ReflexModule is IReflexModule, ReflexStorage {
             }
 
             // Any calls to `nonReentrant` after this point will fail.
-            tstore(_REFLEX_STORAGE_REENTRANCY_STATUS_SLOT, _REENTRANCY_GUARD_LOCKED)
+            tstore(0, _REENTRANCY_GUARD_LOCKED)
         }
 
         _;
 
         assembly ("memory-safe") {
             // By storing the original value once again, a refund is triggered.
-            tstore(_REFLEX_STORAGE_REENTRANCY_STATUS_SLOT, _REENTRANCY_GUARD_UNLOCKED)
+            tstore(0, _REENTRANCY_GUARD_UNLOCKED)
         }
     }
 
