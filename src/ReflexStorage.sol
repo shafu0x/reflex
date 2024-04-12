@@ -30,46 +30,39 @@ abstract contract ReflexStorage is IReflexStorage, ReflexConstants {
     bytes32 internal constant _REFLEX_STORAGE_SLOT = 0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900;
 
     /**
-     * @dev Storage slot of the global reentrancy status tracker.
+     * @dev Storage slot of the owner address.
      * @dev `_REFLEX_STORAGE_LAYOUT + 0`
      */
-    uint256 internal constant _REFLEX_STORAGE_REENTRANCY_STATUS_SLOT =
+    uint256 internal constant _REFLEX_STORAGE_OWNER_SLOT =
         0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 0;
 
     /**
-     * @dev Storage slot of the owner address.
+     * @dev Storage slot of the pending owner address.
      * @dev `_REFLEX_STORAGE_LAYOUT + 1`
      */
-    uint256 internal constant _REFLEX_STORAGE_OWNER_SLOT =
+    uint256 internal constant _REFLEX_STORAGE_PENDING_OWNER_SLOT =
         0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 1;
 
     /**
-     * @dev Storage slot of the pending owner address.
+     * @dev Storage slot of the module mapping.
      * @dev `_REFLEX_STORAGE_LAYOUT + 2`
      */
-    uint256 internal constant _REFLEX_STORAGE_PENDING_OWNER_SLOT =
+    uint256 internal constant _REFLEX_STORAGE_MODULES_SLOT =
         0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 2;
 
     /**
-     * @dev Storage slot of the module mapping.
+     * @dev Storage slot of the endpoint mapping.
      * @dev `_REFLEX_STORAGE_LAYOUT + 3`
      */
-    uint256 internal constant _REFLEX_STORAGE_MODULES_SLOT =
+    uint256 internal constant _REFLEX_STORAGE_ENDPOINTS_SLOT =
         0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 3;
 
     /**
-     * @dev Storage slot of the endpoint mapping.
+     * @dev Storage slot of the endpoint to module relation mapping.
      * @dev `_REFLEX_STORAGE_LAYOUT + 4`
      */
-    uint256 internal constant _REFLEX_STORAGE_ENDPOINTS_SLOT =
-        0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 4;
-
-    /**
-     * @dev Storage slot of the endpoint to module relation mapping.
-     * @dev `_REFLEX_STORAGE_LAYOUT + 5`
-     */
     uint256 internal constant _REFLEX_STORAGE_RELATIONS_SLOT =
-        0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 5;
+        0x73ad830a85e52f69177de11e47bee176868f5b16670f49ea9de2fc41c4c0f900 + 4;
 
     // =======
     // Storage
