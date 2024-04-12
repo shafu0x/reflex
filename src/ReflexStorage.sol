@@ -17,6 +17,11 @@ abstract contract ReflexStorage is IReflexStorage, ReflexConstants {
     // =========
 
     /**
+     * @dev Transient storage slot of the global reentrancy status tracker.
+     */
+    uint256 internal constant _REFLEX_TRANSIENT_REENTRANCY_STATUS_SLOT = 0;
+
+    /**
      * @dev Storage entrypoint of Reflex.
      * @dev `bytes32(keccak256(abi.encode(uint256(keccak256("reflex")) - 1)) & ~bytes32(uint256(0xff)))`
      * Uses EIP-7201 Namespaced Storage Layout: https://eips.ethereum.org/EIPS/eip-7201
